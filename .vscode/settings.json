@@ -1,0 +1,32 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "portfolio",
+            "database": "bpwfeb6omay7h1ki9yim",
+            "username": "uextiu17pba1pnqu",
+            "password": "drPOvVH897OSG1Cij8xL"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "bpwfeb6omay7h1ki9yim-mysql.services.clever-cloud.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "portfolio_hosted",
+            "database": "bpwfeb6omay7h1ki9yim",
+            "username": "uextiu17pba1pnqu",
+            "password": "drPOvVH897OSG1Cij8xL"
+        }
+    ]
+}

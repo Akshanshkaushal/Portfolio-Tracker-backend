@@ -3,6 +3,10 @@ const cors = require('cors');
 const stockRoutes = require('./routes/stocks.js');
 const portfolioRoutes = require('./routes/portfolio');
 
+// Initialize database connection
+const dbPromise = require('./models/db');
+dbPromise.then(() => console.log('Database connection initialized'));
+
 const app = express();
 app.use(cors());
 app.use(express.json());
