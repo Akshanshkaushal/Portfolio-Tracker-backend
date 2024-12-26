@@ -1,5 +1,35 @@
 const Portfolio = require('../models/Portfolio');
 
+/**
+ * @swagger
+ * /portfolio:
+ *   get:
+ *     summary: Get all stocks in the portfolio
+ *     description: Fetch all stocks from the portfolio.
+ *     responses:
+ *       200:
+ *         description: A list of stocks in the portfolio
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   ticker:
+ *                     type: string
+ *                   quantity:
+ *                     type: integer
+ *                   buyPrice:
+ *                     type: number
+ *                     format: float
+ *       500:
+ *         description: Failed to fetch portfolio
+ */
 exports.getPortfolio = async (req, res) => {
   try {
     const stocks = await Portfolio.getAllStocks();
@@ -10,10 +40,39 @@ exports.getPortfolio = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /portfolio:
+ *   post:
+ *     summary: Add a stock to the portfolio
+ *     description: Add a new stock to the portfolio.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               ticker:
+ *                 type: string
+ *               quantity:
+ *                 type: integer
+ *               buyPrice:
+ *                 type: number
+ *                 format: float
+ *     responses:
+ *       201:
+ *         description: Stock added successfully
+ *       400:
+ *         description: Missing required fields
+ *       500:
+ *         description: Failed to add stock
+ */
 exports.addStock = async (req, res) => {
   try {
     const stock = req.body;
-    // Add validation
     if (!stock.name || !stock.ticker || !stock.quantity || !stock.buyPrice) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -27,6 +86,34 @@ exports.addStock = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /portfolio:
+ *   put:
+ *     summary: Update a stock in the portfolio
+ *     description: Update the details of an existing stock in the portfolio.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: integer
+ *               quantity:
+ *                 type: integer
+ *               buyPrice:
+ *                 type: number
+ *                 format: float
+ *     responses:
+ *       200:
+ *         description: Stock updated successfully
+ *       400:
+ *         description: Missing required fields
+ *       500:
+ *         description: Failed to update stock
+ */
 exports.updateStock = async (req, res) => {
   try {
     const stock = req.body;
@@ -42,6 +129,27 @@ exports.updateStock = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /portfolio/{id}:
+ *   delete:
+ *     summary: Delete a stock from the portfolio
+ *     description: Remove a stock from the portfolio by its ID.
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the stock to delete
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Stock deleted successfully
+ *       400:
+ *         description: Stock ID is required
+ *       500:
+ *         description: Failed to delete stock
+ */
 exports.deleteStock = async (req, res) => {
   try {
     const { id } = req.params;
